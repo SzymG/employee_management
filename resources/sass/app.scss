@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #c5f3ff;
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+    }
+}
+
+.container-fluid {
+    padding: 30px;
+}
+
+.data-container {
+    padding: 20px;
+    box-shadow: 0 0 7px 1px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.buttons-row {
+    display: flex;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    flex-wrap: wrap;
+
+    & button {
+        margin: 5px;
+    }
+}
+
+.flex-end-row {
+    display: flex;
+    justify-content: flex-end;
+
+    & button {
+        margin: 5px;
+    }
+}
+
+.edit-employee-form .form-group div {
+    margin-top: 10px;
+}
+
+.edit-form-header {
+    display: flex;
+    flex-direction: column;
+}
+
