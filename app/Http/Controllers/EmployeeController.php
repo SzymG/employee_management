@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\Employee_workhours;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
@@ -19,7 +17,7 @@ class EmployeeController extends Controller
         $validationResult = $employee->validate($request->all());
 
         if($validationResult !== true) {
-            return redirect('/')->with(['errors' => $validationResult]);
+            return redirect('/manage')->with(['errors' => $validationResult]);
         }
 
         $first_name = $request['first_name'];
