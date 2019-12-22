@@ -81,7 +81,7 @@
                                 <tr class="employee-row">
                                     <td>{{$employee->first_name}}</td>
                                     <td>{{$employee->last_name}}</td>
-                                    <td>{{$employee->address}}</td>
+                                    <td>{{$employee->address_email}}</td>
                                     <td>{{$employee->hiring_date}}</td>
                                     <td>{{$employee->birth_date}}</td>
                                     <td>{{$employee->salary}}</td>

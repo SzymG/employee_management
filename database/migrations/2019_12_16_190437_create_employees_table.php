@@ -17,10 +17,10 @@ class CreateEmployeesTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('address');
-            $table->date('hiring_date');
-            $table->date('birth_date');
-            $table->string('salary');
+            $table->string('address_email')->unique();
+            $table->date('hiring_date')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('salary')->nullable();
             $table->timestamps();
         });
     }

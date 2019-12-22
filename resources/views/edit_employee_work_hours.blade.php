@@ -5,11 +5,11 @@
 <div class="container-fluid">
     <div class="data-container">
         <div class="row">
-            <div class="flex-row">
+            <div class="col-12">
                 <h3>
                     @lang('messages.editEmployeeWorkHours', ['name' => $employee_full_name])
                 </h3>
-                <div class="buttons-row">
+                <div class="flex-end-row">
                     <div class="form-group">
                         <button class="btn btn-info" onclick="window.location='{{ url("view/".$work_hours->employee_id) }}'">
                             @lang('messages.backToEmployeeView')</button>
@@ -32,29 +32,31 @@
                     @endforeach
                 </div>
             @endif
-            <!-- Form to edit an employee workhours-->
-            <form class="edit-employee-form" action="{{route('employee-work-hours.edit')}}" method="post">
-                @csrf
-                <input name="id" type="hidden" value="{{ $work_hours->id }}">
-                <input name="employee_id" type="hidden" value="{{ $work_hours->employee_id }}">
-                <div class="form-group">
-                    <div class="col-12 col-md-6">
-                        <label for="">@lang('messages.timeStart'): </label>
-                        <input type="datetime-local" value="{{$work_hours->date_start}}" name="date_start" class="form-control" required>
+            <div class="col-12">
+                <!-- Form to edit an employee workhours-->
+                <form class="edit-employee-form" action="{{route('employee-work-hours.edit')}}" method="post">
+                    @csrf
+                    <input name="id" type="hidden" value="{{ $work_hours->id }}">
+                    <input name="employee_id" type="hidden" value="{{ $work_hours->employee_id }}">
+                    <div class="form-group">
+                        <div class="col-12 col-md-6">
+                            <label for="">@lang('messages.timeStart'): </label>
+                            <input type="datetime-local" value="{{$work_hours->date_start}}" name="date_start" class="form-control" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-12 col-md-6">
-                        <label for="">@lang('messages.timeEnd'): </label>
-                        <input type="datetime-local" value="{{$work_hours->date_end}}" name="date_end" class="form-control" required>
+                    <div class="form-group">
+                        <div class="col-12 col-md-6">
+                            <label for="">@lang('messages.timeEnd'): </label>
+                            <input type="datetime-local" value="{{$work_hours->date_end}}" name="date_end" class="form-control" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-success btn-block">@lang('messages.save')</button>
+                    <div class="form-group">
+                        <div class="col-md-12 pt-4">
+                            <button type="submit" class="btn btn-success btn-block">@lang('messages.save')</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -67,7 +69,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-                <p>@lang('messages.deleteEmployeeMessage')</p>
+                <p>@lang('messages.deleteWorkHoursMessage')</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">@lang('messages.back')</button>

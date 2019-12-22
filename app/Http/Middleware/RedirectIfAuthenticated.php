@@ -18,7 +18,8 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/manage');
+            $user = auth()->user();
+            return redirect('/view/'.$user->employee_id);
         }
 
         return $next($request);

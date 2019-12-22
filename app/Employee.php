@@ -10,10 +10,7 @@ class Employee extends Model
     private $rules = [
         'first_name' => 'required|string',
         'last_name' => 'required|string',
-        'address' => 'string',
-        'hiring_date' => 'required|date',
-        'birth_date' => 'required|date',
-        'salary' => 'required|numeric',
+        'address_email' => 'required'
     ];
 
     public function validate($data) {

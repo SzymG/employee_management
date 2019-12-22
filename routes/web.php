@@ -15,10 +15,10 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/manage', [
-    'uses' => 'EmployeeController@show',
-    'as' => 'employee.show'
-])->middleware('auth');
+//Route::get('/manage', [
+//    'uses' => 'EmployeeController@show',
+//    'as' => 'employee.show'
+//])->middleware('auth');
 
 Route::post('/create', [
     'uses' => 'EmployeeController@create',
@@ -29,21 +29,26 @@ Route::post('employee-work-hours/create', [
     'uses' => 'EmployeeWorkHoursController@create',
     'as' => 'employeeWorkHours.create'
 ])->middleware('auth');
+
 /*Renders employee view*/
 Route::get('/view/{id}', [
-    'uses' => 'EmployeeController@view',
+    'uses' => 'EmployeeController@view'
 ])->middleware('auth');
+
 /*Renders edit employee view*/
 Route::get('/edit/{id}', [
     'uses' => 'EmployeeController@editView',
 ])->middleware('auth');
+
 /*Saving edit form*/
 Route::post('/edit', [
     'uses' => 'EmployeeController@editPost',
     'as' => 'employee.edit'
 ])->middleware('auth');
+
 /*Delete of employee*/
 Route::delete('/employee/delete/{id}', 'EmployeeController@destroy')->middleware('auth');
+
 /*Delete of employee wok hours*/
 Route::delete('/employee-work-hours/delete/{id}', 'EmployeeWorkHoursController@destroy')->middleware('auth');
 

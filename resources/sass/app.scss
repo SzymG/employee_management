@@ -6,3 +6,33 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #00dbff24;
+    font-size: 15px;
+}
+
+.flex-end-row {
+    display: flex;
+    justify-content: flex-end;
+
+    .form-group {
+        margin-left: 10px;
+    }
+}
+
+.data-container {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 5px 1px;
+    margin-bottom: 20px
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}

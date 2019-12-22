@@ -9,6 +9,9 @@
             <!-- Container with employee view -->
             <div class="data-container">
                 <div class="edit-form-header">
+                    <?php
+                        $user = auth()->user();
+                    ?>
                     <div>
                         <h3>
                             @lang('messages.viewEmployee', ['name' => $employee->first_name.' '.$employee->last_name])
@@ -27,10 +30,12 @@
                                 </button>
                             </a>
                         </div>
-                        <div class="form-group">
-                            <button class="btn btn-info" onclick="window.location='{{ url("/")}}'">
-                                @lang('messages.backToList')</button>
-                        </div>
+                        <!-- Przycisk do powrotu na widok zarządzania pracownikami, w przyszłości jeśli chcialibyśmy poszerzyć funkcjonalność
+                        aplikacji - można go odkomentować -->
+{{--                        <div class="form-group">--}}
+{{--                            <button class="btn btn-info" onclick="window.location='{{ url("/")}}'">--}}
+{{--                                @lang('messages.backToList')</button>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
                 <!-- Employee data -->
@@ -49,7 +54,7 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label for="">@lang('messages.address'): </label>
-                        <input disabled="true" value="{{$employee->address}}" type="text" name="address" class="form-control">
+                        <input disabled="true" value="{{$employee->address_email}}" type="text" name="address_email" class="form-control">
                     </div>
                 </div>
                 <div class="row form-group">

@@ -4,20 +4,22 @@
     <div class="container-fluid">
         <div class="data-container">
             <div class="row">
-                <div>
+                <div class="w-100">
                     <div class="flex-row">
                         <h3>
                             @lang('messages.editEmployee', ['name' => $employee->first_name.' '.$employee->last_name])
                         </h3>
-                        <div class="buttons-row">
+                        <div class="flex-end-row">
                             <div class="form-group">
                                 <button class="btn btn-info" onclick="window.location='{{ url("view/".$employee->id) }}'">
                                     @lang('messages.backToView')</button>
                             </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary" onclick="window.location='{{ url("/") }}'">
-                                    @lang('messages.backToList')</button>
-                            </div>
+                            <!-- Przycisk do powrotu na widok zarządzania pracownikami, w przyszłości jeśli chcialibyśmy poszerzyć funkcjonalność
+                        aplikacji - można go odkomentować -->
+{{--                            <div class="form-group">--}}
+{{--                                <button class="btn btn-primary" onclick="window.location='{{ url("/") }}'">--}}
+{{--                                    @lang('messages.backToList')</button>--}}
+{{--                            </div>--}}
                             <div class="form-group">
                                 <a href="#deleteEmployeeModal" class="trigger-btn" data-toggle="modal">
                                     <button type="button" class="btn btn-danger" data-id="{{ $employee->id }}" onclick=setSelectedIdAndType($(this).data('id'),'employee')>
@@ -40,43 +42,43 @@
                         @csrf
                         <input name="id" type="hidden" value="{{$employee->id}}">
                         <div class="form-group">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-lg-6">
                                 <label for="">@lang('messages.name'): </label>
                                 <input value="{{$employee->first_name}}" type="text" name="first_name" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-lg-6">
                                 <label for="">@lang('messages.surname'): </label>
                                 <input value="{{$employee->last_name}}" type="text" name="last_name" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-lg-6">
                                 <label for="">@lang('messages.address'): </label>
-                                <input value="{{$employee->address}}" type="text" name="address" class="form-control">
+                                <input value="{{$employee->address_email}}" type="text" name="address_email" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-lg-6">
                                 <label for="">@lang('messages.hiringDate'): </label>
-                                <input value="{{$employee->hiring_date}}" type="date" name="hiring_date" class="form-control" required>
+                                <input value="{{$employee->hiring_date}}" type="date" name="hiring_date" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-lg-6">
                                 <label for="">@lang('messages.birthDate'): </label>
-                                <input value="{{$employee->birth_date}}" type="date" name="birth_date" class="form-control" required>
+                                <input value="{{$employee->birth_date}}" type="date" name="birth_date" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-lg-6">
                                 <label for="">@lang('messages.salary'): </label>
-                                <input value="{{$employee->salary}}" type="number" name="salary" class="form-control" required>
+                                <input value="{{$employee->salary}}" type="number" name="salary" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-12 pt-5">
                                 <button type="submit" class="btn btn-success btn-block">@lang('messages.save')</button>
                             </div>
                         </div>

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Employee;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -63,8 +65,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $employee = new Employee();
+
+        $employee->first_name = $data['name'];
+        $employee->last_name = $data['surname'];
+        $employee->address_email = $data['email'];
+
+        $employee->save();
+
         return User::create([
             'name' => $data['name'],
+            'surname' => $data['surname'],
+            'employee_id' => $employee->id,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

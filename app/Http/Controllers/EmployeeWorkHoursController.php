@@ -59,48 +59,76 @@ class EmployeeWorkHoursController extends Controller
      * a method that shows employee work hours edit view
      */
     public function editView($id) {
-        $work_hours = Employee_workhours::find($id);
-        $work_hours->date_start = date('Y-m-d\TH:i', strtotime($work_hours->date_start));
-        $work_hours->date_end = date('Y-m-d\TH:i', strtotime($work_hours->date_end));
-
-        $employee = Employee::find($work_hours->employee_id);
-        $employeeName = $employee->first_name.' '.$employee->last_name;
-
-        $errors = '';
-
-        if (!empty(Session::get('errors'))) {
-            $errors = Session::get('errors');
+        $user = auth()->user();
+        $employeeWorkHours = Employee_workhours::where('employee_id', '=', $user->employee_id)->get();
+        $isPrivileged = false;
+        foreach($employeeWorkHours as $workHour) {
+            if($workHour->id === (int)$id) {
+                $isPrivileged = true;
+                break;
+            }
         }
 
-        return view('edit_employee_work_hours', ['work_hours' => $work_hours, 'employee_full_name' => $employeeName, 'errors' => $errors]);
+        if($isPrivileged) {
+            $work_hours = Employee_workhours::find($id);
+            $work_hours->date_start = date('Y-m-d\TH:i', strtotime($work_hours->date_start));
+            $work_hours->date_end = date('Y-m-d\TH:i', strtotime($work_hours->date_end));
+
+            $employee = Employee::find($work_hours->employee_id);
+            $employeeName = $employee->first_name.' '.$employee->last_name;
+
+            $errors = '';
+
+            if (!empty(Session::get('errors'))) {
+                $errors = Session::get('errors');
+            }
+
+            return view('edit_employee_work_hours', ['work_hours' => $work_hours, 'employee_full_name' => $employeeName, 'errors' => $errors]);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
      * a method that edits existing employee work hours
      */
     public function editPost(Request $request) {
-        $employee_work_hours = Employee_workhours::find((int)$request['id']);
-
-        $employee_id = $request['employee_id'];
-        $date_start = $request['date_start'];
-        $date_end = $request['date_end'];
-
-        $validationResult = $employee_work_hours->validate($request->all());
-
-        if($request['date_end'] < $request['date_start']){
-            $validationResult = '{"datetime_error":["The date end must be a date after date start."]}';
+        $user = auth()->user();
+        $employeeWorkHours = Employee_workhours::where('employee_id', '=', $user->employee_id)->get();
+        $isPrivileged = false;
+        foreach($employeeWorkHours as $workHour) {
+            if($workHour->id === (int)$request['id']) {
+                $isPrivileged = true;
+                break;
+            }
         }
 
-        if($validationResult !== true) {
-            return redirect('/employee-work-hours/edit/'.$request['id'])->with(['errors' => $validationResult]);
+        if($isPrivileged) {
+            $employee_work_hours = Employee_workhours::find((int)$request['id']);
+
+            $employee_id = $request['employee_id'];
+            $date_start = $request['date_start'];
+            $date_end = $request['date_end'];
+
+            $validationResult = $employee_work_hours->validate($request->all());
+
+            if($request['date_end'] < $request['date_start']){
+                $validationResult = '{"datetime_error":["The date end must be a date after date start."]}';
+            }
+
+            if($validationResult !== true) {
+                return redirect('/employee-work-hours/edit/'.$request['id'])->with(['errors' => $validationResult]);
+            }
+
+            $employee_work_hours->employee_id = $employee_id;
+            $employee_work_hours->date_start = $date_start;
+            $employee_work_hours->date_end = $date_end;
+
+            $employee_work_hours->save();
+
+            return redirect('/view/'.$employee_id)->with('success');
+        } else {
+            return redirect()->back();
         }
-
-        $employee_work_hours->employee_id = $employee_id;
-        $employee_work_hours->date_start = $date_start;
-        $employee_work_hours->date_end = $date_end;
-
-        $employee_work_hours->save();
-
-        return redirect('/view/'.$employee_id)->with('success');
     }
 }
